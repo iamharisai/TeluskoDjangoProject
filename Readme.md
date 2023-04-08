@@ -22,5 +22,5 @@ V - View
 T - Template
 ```
 
-![image info](pictures/mvtimage.png)
+![image info](telusko/pictures/mvtimage.png)
 
