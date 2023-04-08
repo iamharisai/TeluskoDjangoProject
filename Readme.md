@@ -15,3 +15,12 @@ git add .
 (venv) apple@LAPTOP484-PN-IN telusko % git commit -m "Added readme file"
 git push
 ```
+### MVT 
+```
+M - Model
+V - View
+T - Template
+```
+
+![image info](pictures/mvtimage.png)
+
