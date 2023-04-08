@@ -75,3 +75,30 @@ This will show you the model creation sql query in postgres
 
 Finally, start the migration which will create the table in database
 `python telusko/manage.py migrate`
+
+Created a admin user :
+`python telusko/manage.py createsuperuser` 
+User: Hari
+
+Register the model in admin.py
+```
+from .models import Destination
+
+# Register your models here.
+admin.site.register(Destination)
+```
+Now you can see destinations models in admin page and destinations from web page to database 
+
+To upload images from admin web page we need seperate handler so add below lines to setting.py
+`MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')`
+
+Then add these URLs in main project urls.py
+`urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)`
+
+Now we can destinations in admin page and those wil be inserted into database by Django
+Change the images path from baseurl to img.url
+
+##### Now we have a dynamic page where data can be come from database.
+
+---END-----
