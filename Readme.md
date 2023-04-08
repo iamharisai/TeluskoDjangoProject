@@ -24,3 +24,54 @@ T - Template
 
 ![image info](telusko/pictures/mvtimage.png)
 
+### ORM
+
+![image info](telusko/pictures/orm.png)
+
+We have to setup postgres server on local to use this as database for our project
+Then change below setings in setting.py
+```
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": 'telusko',
+        'USER': 'telusko',
+        'PASSWORD' : 'Hari',
+        'HOST': 'localhost'
+    }
+}
+```
+
+Then chnage the model as per Django model fields
+```
+class Destination(models.Model):
+    
+    name = models.CharField(max_length=100)
+    img = models.ImageField(upload_to='pics')
+    desc = models.TextField()
+    price = models.IntegerField()
+    offer = models.BooleanField(default=False)
+```
+
+#### Install postgres connector like psycopg2 
+`pip install pyscopg2`
+
+Add your app in INSTALLED_APPS list in settings.py 
+```
+INSTALLED_APPS = [
+    "travello.apps.TravelloConfig", ## This is the line we need to add
+    "django.contrib.admin",
+    "django.contrib.auth",
+```
+
+#### Make migration now
+`python telusko/manage.py makemigration`
+If any error to install `pillow` package then install those packages
+`pip install pillow` then makemigrations
+
+once the migration is made you can see migrationfile created under migrations folder like `0001_initial.py`
+`python telusko/manage.py sqlmigrate travello 0001`
+This will show you the model creation sql query in postgres
+
+Finally, start the migration which will create the table in database
+`python telusko/manage.py migrate`
