@@ -73,7 +73,7 @@ once the migration is made you can see migrationfile created under migrations fo
 `python telusko/manage.py sqlmigrate travello 0001`
 This will show you the model creation sql query in postgres
 
-Finally, start the migration which will create the table in database
+Finally, start the migration which will create the tables in database
 `python telusko/manage.py migrate`
 
 Created a admin user :
@@ -96,9 +96,34 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')`
 Then add these URLs in main project urls.py
 `urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)`
 
-Now we can destinations in admin page and those wil be inserted into database by Django
-Change the images path from baseurl to img.url
+Now we can provide destinations in admin page and those wil be inserted into database by Django
+Change the images path from baseurl to img.url in index.html
 
 ##### Now we have a dynamic page where data can be come from database.
 
----END-----
+---END of Travello app-----
+
+We will add user registration and login forms here, we will create a new app for this
+`python telusko/manage.py startapp accounts`
+
+We have created urls.py in accounts app and added this urls in main urls.py and created register.html
+
+We can save this registration details as User object in PG database
+```
+def register(request):
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        username = request.POST['username']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        email = request.POST['email']
+
+        user = User.objects.create_user(username=username, password=password1, email=email,first_name=first_name,last_name=last_name)
+        user.save();
+        print('User created in databse')
+        return redirect('/')
+    else:
+        return render(request,'register.html')
+```
+Created a register, login and logout functions in website.
